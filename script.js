@@ -36,20 +36,13 @@ video.addEventListener("playing", () => {
         const detections = await faceapi
             .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()) // 비디오에서 얼굴 탐지
             .withFaceLandmarks() // 얼굴 랜드마크 추출
-            .withFaceExpressions(); // 표정 인식
 
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
         // 캔버스 초기화
         canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
-        // 감지된 얼굴 표시
-        faceapi.draw.drawDetections(canvas, resizedDetections);
-
         // 얼굴 랜드마크 표시
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-
-        // 표정 표시
-        faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
     }, 100); // 100ms마다 실행
 });
